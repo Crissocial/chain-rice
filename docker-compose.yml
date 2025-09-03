@@ -49,6 +49,9 @@ services:
     build:
       context: ./meowtopia/backend
       dockerfile: Dockerfile.backend
+      platforms:
+        - linux/amd64
+        - linux/arm64
       args:
         BUILD_ENV: ${BUILD_ENV}
         BUILD_NUMBER: ${BUILD_NUMBER}
@@ -77,7 +80,10 @@ services:
   meowtopia-frontend:
     build:
       context: ./meowtopia/frontend/web
-      dockerfile: Dockerfile.web
+      dockerfile: Dockerfile.web.npm
+      platforms:
+        - linux/amd64
+        - linux/arm64
       args:
         BUILD_ENV: ${BUILD_ENV}
         BUILD_NUMBER: ${BUILD_NUMBER}

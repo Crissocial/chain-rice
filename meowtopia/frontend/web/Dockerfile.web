@@ -1,5 +1,5 @@
-# 🌐 Node.js v18 Debian-based
-FROM node:18-bullseye
+# 🌐 Multi-platform Node.js Dockerfile for better cross-platform compatibility
+FROM --platform=$BUILDPLATFORM node:18-slim
 
 # 📁 Set working directory
 WORKDIR /app
@@ -7,12 +7,25 @@ WORKDIR /app
 # 🔧 Enable Corepack and Yarn 4
 RUN corepack enable && corepack prepare yarn@4.9.1 --activate
 
-# 📦 Copy package files for caching
-COPY package.json yarn.lock .yarnrc.yml ./
-COPY .yarn/ .yarn/
+# 🧹 Clean any existing installations
+RUN rm -rf node_modules package-lock.json .yarn/cache .yarn/install-state.gz
 
-# 🔧 Install dependencies inside container (Linux)
-RUN yarn install
+# 📦 Copy package files first
+COPY package.json ./
+
+# 🔧 Install dependencies with platform-specific handling
+RUN yarn install --frozen-lockfile --network-timeout 100000 || \
+    (echo "First install failed, trying without lockfile..." && \
+     rm -rf node_modules .yarn/cache .yarn/install-state.gz && \
+     yarn install --network-timeout 100000)
+
+# 📦 Copy yarn.lock if it exists
+COPY yarn.lock* ./
+
+# 🔄 Final install to ensure consistency
+RUN yarn install --frozen-lockfile --network-timeout 100000 || \
+    (rm -rf node_modules .yarn/cache .yarn/install-state.gz && \
+     yarn install --network-timeout 100000)
 
 # 📦 Copy frontend source code
 COPY . .
