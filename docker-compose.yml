@@ -1,3 +1,5 @@
+version: "3.9"
+
 networks:
   chain-rice-network:
     driver: bridge
@@ -21,8 +23,6 @@ services:
       - "26656:26656"
       - "1317:1317"
     restart: unless-stopped
-    # env_file:
-    #   - .env
     volumes:
       - ${BLOCKCHAIN_DATA_DIR:-./blockchain-data}:/root/.chainrice
     networks:
@@ -34,8 +34,6 @@ services:
     profiles:
       - app
     restart: unless-stopped
-    # env_file:
-    #   - .env
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-meowtopia}
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
@@ -68,8 +66,6 @@ services:
     working_dir: /app
     networks:
       - chain-rice-network
-    # env_file:
-    #   - .env
     environment:
       POSTGRES_HOST: ${POSTGRES_HOST:-meowtopia-db}
       POSTGRES_DB: ${POSTGRES_DB:-meowtopia}
@@ -97,10 +93,12 @@ services:
     depends_on:
       - meowtopia-backend
     volumes:
-      - ./meowtopia/frontend/web:/app
+      - ./meowtopia/frontend/web:/app:cached
+      - frontend-node-modules:/app/node_modules
     working_dir: /app
     networks:
       - chain-rice-network
 
 volumes:
   meowtopia-db-data:
+  frontend-node-modules:

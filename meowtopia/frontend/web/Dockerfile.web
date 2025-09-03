@@ -1,24 +1,25 @@
-# 🌐 Use Node.js (Debian-based for better compatibility)
-FROM node:18-slim
+# 🌐 Node.js v18 Debian-based
+FROM node:18-bullseye
 
 # 📁 Set working directory
 WORKDIR /app
 
-# 🔧 Enable corepack and set up correct Yarn version
+# 🔧 Enable Corepack and Yarn 4
 RUN corepack enable && corepack prepare yarn@4.9.1 --activate
 
-# 📦 Copy package files and install dependencies with timeout settings
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+# 📦 Copy package files for caching
+COPY package.json yarn.lock .yarnrc.yml ./
+COPY .yarn/ .yarn/
 
-# 📦 Copy the full frontend codebase
+# 🔧 Install dependencies inside container (Linux)
+RUN yarn install
+
+# 📦 Copy frontend source code
 COPY . .
 
-# 🚪 Expose the Vite dev server port
+# 🚪 Expose Vite dev server port
 EXPOSE 3000
-
-# 🧪 Set default env
 ENV NODE_ENV=development
 
-# 🚀 Start the Vite development server
+# 🚀 Start Vite dev server
 CMD ["yarn", "dev", "--host", "0.0.0.0", "--port", "3000"]
