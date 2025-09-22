@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package marketing.messages;
+
+import "google/protobuf/timestamp.proto";
+import "marketing/enums/contact_status.proto";
+
+// Response message for contact operations (email, SMS, or social DM)
+message ContactResponse {
+    string id = 1; // Unique ID for the message
+    marketing.enums.ContactStatus status = 2; // Status of the message
+    string details = 3; // Additional details (e.g., error message, confirmation)
+
+    // Platform-specific details
+    oneof platform_details {
+        SmsResponse sms_response = 4; // SMS-specific response details
+        EmailResponse email_response = 5; // Email-specific response details (if needed)
+        SocialDmResponse social_dm_response = 6; // Social DM-specific response details (if needed)
+    }
+}
+
+// SMS-specific response details
+message SmsResponse {
+    string sms_provider_id = 1; // ID from the SMS provider
+    string sms_delivery_status = 2; // Delivery status from the SMS provider
+    string message = 3; // SMS message content
+    repeated string recipients = 4; // Recipient phone numbers
+    string sender_number = 5; // Sender phone number
+    string template_id = 6; // SMS template ID (if applicable)
+    string campaign_id = 7; // Campaign ID (if applicable)
+    google.protobuf.Timestamp scheduled_time = 8; // Scheduled send time
+    google.protobuf.Timestamp sent_time = 9; // Actual send time
+    int32 priority = 10; // SMS priority
+    repeated string tags = 11; // SMS tags
+    bool include_opt_out = 12; // Include opt-out link
+    google.protobuf.Timestamp created_at = 13; // Creation timestamp
+    google.protobuf.Timestamp updated_at = 14; // Last update timestamp
+    SmsMetrics metrics = 15; // SMS performance metrics
+}
+
+// SMS performance metrics
+message SmsMetrics {
+    int32 recipient_count = 1; // Number of recipients
+    int32 delivered_count = 2; // Number of SMS delivered
+    int32 read_count = 3; // Number of SMS read
+    int32 clicked_count = 4; // Number of clicks
+    int32 opt_out_count = 5; // Number of opt-outs
+    int32 blocked_count = 6; // Number of blocked messages
+    double delivery_rate = 7; // Delivery rate
+    double read_rate = 8; // Read rate
+    double click_rate = 9; // Click rate
+    double opt_out_rate = 10; // Opt-out rate
+    double cost_per_sms = 11; // Cost per SMS
+    double total_cost = 12; // Total cost
+}
+
+// Email-specific response details (optional, for future use)
+message EmailResponse {
+    string email_provider_id = 1; // ID from the email provider
+    string delivery_status = 2; // Delivery status of the email
+    repeated string recipients = 3; // Recipient email addresses
+    string sender_email = 4; // Sender email address
+    google.protobuf.Timestamp sent_time = 5; // Actual send time
+}
+
+// Social DM-specific response details (optional, for future use)
+message SocialDmResponse {
+    string platform_handle = 1; // Social media handle (e.g., @username)
+    string platform_name = 2; // Social media platform name (e.g., Instagram, Twitter)
+    string message_id = 3; // ID of the sent message
+    google.protobuf.Timestamp sent_time = 4; // Actual send time
+}

@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package marketing.services;
+
+import "marketing/messages/social_request.proto";
+import "marketing/messages/social_response.proto";
+
+// gRPC service for managing social posts and campaigns
+service SocialService {
+  // Create a new social media post
+  rpc CreateSocial(marketing.social.messages.CreateSocialRequest) returns (marketing.social.messages.CreateSocialResponse);
+  
+  // Get a social media post by ID
+  rpc GetSocial(marketing.social.messages.GetSocialRequest) returns (marketing.social.messages.GetSocialResponse);
+  
+  // List social media posts with pagination and filtering
+  rpc ListSocial(marketing.social.messages.ListSocialRequest) returns (marketing.social.messages.ListSocialResponse);
+  
+  // Update an existing social media post
+  rpc UpdateSocial(marketing.social.messages.UpdateSocialRequest) returns (marketing.social.messages.UpdateSocialResponse);
+  
+  // Delete a social media post
+  rpc DeleteSocial(marketing.social.messages.DeleteSocialRequest) returns (marketing.social.messages.DeleteSocialResponse);
+  
+  // Create or update a social post or campaign
+  rpc CreateOrUpdate(SocialRequest) returns (SocialResponse);
+
+  // Get details of a social post or campaign
+  rpc GetDetails(SocialRequest) returns (SocialResponse);
+
+  // Delete a social post or campaign
+  rpc Delete(SocialRequest) returns (SocialResponse);
+}

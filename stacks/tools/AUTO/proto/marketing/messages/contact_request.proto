@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package marketing.messages;
+
+import "google/protobuf/timestamp.proto";
+import "marketing/enums/contact_status.proto";
+
+// Enum for contact platforms
+enum ContactPlatform {
+    UNKNOWN = 0;
+    EMAIL = 1;
+    SMS = 2;
+    SOCIAL_DM = 3; // Direct messages from social platforms
+}
+
+// General request message for sending a contact (email, SMS, or social DM)
+message ContactRequest {
+    ContactPlatform platform = 1; // Platform (EMAIL, SMS, SOCIAL_DM)
+    string recipient = 2; // Recipient's contact info (email, phone, or social handle)
+    string subject = 3; // Optional: Subject for email
+    string message = 4; // Message content
+    map<string, string> metadata = 5; // Additional metadata (e.g., campaign ID, timestamp)
+
+    // Platform-specific details
+    oneof platform_details {
+        SmsDetails sms_details = 6; // SMS-specific details
+        EmailDetails email_details = 7; // Email-specific details (if needed)
+        SocialDmDetails social_dm_details = 8; // Social DM-specific details (if needed)
+    }
+}
+
+// SMS-specific details
+message SmsDetails {
+    string sender_number = 1; // Sender phone number
+    repeated string recipients = 2; // Recipient phone numbers
+    string template_id = 3; // Optional: Template ID for SMS
+    google.protobuf.Timestamp scheduled_time = 4; // Scheduled send time
+    int32 priority = 5; // SMS priority
+    repeated string tags = 6; // SMS tags
+    bool include_opt_out = 7; // Include opt-out link
+}
+
+// Email-specific details (optional, for future use)
+message EmailDetails {
+    string sender_email = 1; // Sender email address
+    repeated string recipients = 2; // Recipient email addresses
+    string cc = 3; // CC email addresses
+    string bcc = 4; // BCC email addresses
+}
+
+// Social DM-specific details (optional, for future use)
+message SocialDmDetails {
+    string platform_handle = 1; // Social media handle (e.g., @username)
+    string platform_name = 2; // Social media platform name (e.g., Instagram, Twitter)
+}
+
+//MUSZĘ POSZUKAĆ BO BOT MOWI ZE TO NIE DOBRE LĄCZYĆ SMS I TEN CONTACT BO MOZE BYĆ OVERLOAD

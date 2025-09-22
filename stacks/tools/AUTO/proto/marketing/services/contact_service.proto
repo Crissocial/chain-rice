@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package marketing.services;
+
+import "marketing/messages/contact_request.proto";
+import "marketing/messages/contact_response.proto";
+
+// gRPC service for managing "contact us" messages (email, SMS, or social DMs)
+service ContactService {
+    // General methods for sending and checking messages
+    rpc SendMessage(ContactRequest) returns (ContactResponse); // Send a message via any contact platform
+    rpc CheckMessageStatus(ContactRequest) returns (ContactResponse); // Check the status of a sent message
+
+    // SMS-specific methods
+    rpc CreateSms(ContactRequest) returns (ContactResponse); // Create a new SMS
+    rpc GetSms(ContactRequest) returns (ContactResponse); // Get an SMS by ID
+    rpc ListSms(ContactRequest) returns (ContactResponse); // List SMS messages with pagination and filtering
+    rpc UpdateSms(ContactRequest) returns (ContactResponse); // Update an existing SMS
+    rpc DeleteSms(ContactRequest) returns (ContactResponse); // Delete an SMS
+}

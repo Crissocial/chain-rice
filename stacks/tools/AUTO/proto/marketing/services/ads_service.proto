@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package marketing.services;
+
+import "marketing/messages/ads_request.proto";
+import "marketing/messages/ads_response.proto";
+
+// Service for managing advertisements
+service AdsService {
+
+  // Create a new ad
+  rpc CreateAd(marketing.ads.messages.CreateAdRequest) 
+      returns (marketing.ads.messages.CreateAdResponse);
+
+  // Get a single ad by ID
+  rpc GetAd(marketing.ads.messages.GetAdRequest) 
+      returns (marketing.ads.messages.GetAdResponse);
+
+  // List multiple ads with optional filters and pagination
+  rpc ListAds(marketing.ads.messages.ListAdsRequest) 
+      returns (marketing.ads.messages.ListAdsResponse);
+
+  // Update an existing ad
+  rpc UpdateAd(marketing.ads.messages.UpdateAdRequest) 
+      returns (marketing.ads.messages.UpdateAdResponse);
+
+  // Delete an ad by ID
+  rpc DeleteAd(marketing.ads.messages.DeleteAdRequest) 
+      returns (marketing.ads.messages.DeleteAdResponse);
+}

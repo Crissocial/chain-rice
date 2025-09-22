@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package marketing.enums;
+
+// Enum for contact message status (email, SMS, social DMs)
+enum ContactStatus {
+    UNKNOWN = 0;
+    PENDING = 1;
+    SENT = 2;
+    DELIVERED = 3;
+    FAILED = 4;
+    READ = 5;
+}
+enum ContactPlatform {
+    UNKNOWN = 0;
+    EMAIL = 1;
+    SMS = 2;
+    SOCIAL_DM = 3; // Direct messages from social platforms
+}
+enum SmsStatus {
+    UNKNOWN = 0;
+    QUEUED = 1;
+    SENT = 2;
+    FAILED = 3;
+}
