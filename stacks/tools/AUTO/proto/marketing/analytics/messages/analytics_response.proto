@@ -5,110 +5,59 @@ package marketing.analytics.messages;
 import "google/protobuf/timestamp.proto";
 import "marketing/analytics/enums/analytics_type.proto";
 
-// Analytics data transfer object
+// Core Analytics DTO (Data Transfer Object)
 message Analytics {
-  // Analytics ID
-  string id = 1;
-  
-  // Analytics name
-  string name = 2;
-  
-  // Analytics type
-  marketing.analytics.enums.AnalyticsType type = 3;
-  
-  // Analytics description
-  string description = 4;
-  
-  // Data source
-  string data_source = 5;
-  
-  // Metrics data in JSON format
-  string metrics_data = 6;
-  
-  // Campaign ID (if applicable)
-  string campaign_id = 7;
-  
-  // Date for the analytics data
-  google.protobuf.Timestamp date = 8;
-  
-  // Creation timestamp
-  google.protobuf.Timestamp created_at = 9;
-  
-  // Last update timestamp
-  google.protobuf.Timestamp updated_at = 10;
-  
-  // Analytics summary
-  AnalyticsSummary summary = 11;
+  string id = 1;                              // Unique analytics ID
+  string name = 2;                            // Analytics name
+  marketing.analytics.enums.AnalyticsType type = 3; // Type of analytics
+  string description = 4;                     // Optional description
+  string data_source = 5;                     // Source of the data
+  string metrics_data = 6;                    // Metrics as JSON
+  string campaign_id = 7;                     // Optional campaign association
+  google.protobuf.Timestamp date = 8;        // Date of the data
+  google.protobuf.Timestamp created_at = 9;  // Creation timestamp
+  google.protobuf.Timestamp updated_at = 10; // Last update timestamp
+  AnalyticsSummary summary = 11;             // Optional summary metrics
 }
 
-// Analytics summary data
+// Summary metrics for an analytics record
 message AnalyticsSummary {
-  // Total views/impressions
-  int64 total_views = 1;
-  
-  // Total clicks
-  int64 total_clicks = 2;
-  
-  // Total conversions
-  int64 total_conversions = 3;
-  
-  // Conversion rate
-  double conversion_rate = 4;
-  
-  // Click-through rate
-  double ctr = 5;
-  
-  // Total revenue
-  double total_revenue = 6;
-  
-  // Cost per acquisition
-  double cpa = 7;
-  
-  // Return on ad spend
-  double roas = 8;
+  int64 total_views = 1;        // Total views/impressions
+  int64 total_clicks = 2;       // Total clicks
+  int64 total_conversions = 3;  // Total conversions
+  double conversion_rate = 4;   // Conversion rate
+  double ctr = 5;               // Click-through rate
+  double total_revenue = 6;     // Total revenue
+  double cpa = 7;               // Cost per acquisition
+  double roas = 8;              // Return on ad spend
 }
 
-// Response message for creating analytics data
+// Response for creating a new analytics record
 message CreateAnalyticsResponse {
-  // Created analytics data
-  Analytics analytics = 1;
-  
-  // Success message
-  string message = 2;
+  Analytics analytics = 1;      // Created record
+  string message = 2;           // Optional success message
 }
 
-// Response message for getting analytics data
+// Response for fetching a single analytics record
 message GetAnalyticsResponse {
-  // Analytics data
-  Analytics analytics = 1;
+  Analytics analytics = 1;      // Requested record
 }
 
-// Response message for listing analytics data
+// Response for listing multiple analytics records
 message ListAnalyticsResponse {
-  // List of analytics data
-  repeated Analytics analytics = 1;
-  
-  // Total count of analytics records
-  int32 total_count = 2;
-  
-  // Current page number
-  int32 page = 3;
-  
-  // Number of items per page
-  int32 page_size = 4;
+  repeated Analytics analytics = 1; // List of records
+  int32 total_count = 2;             // Optional total number of records
+  int32 page = 3;                    // Current page number
+  int32 page_size = 4;               // Items per page
 }
 
-// Response message for updating analytics data
+// Response for updating an analytics record
 message UpdateAnalyticsResponse {
-  // Updated analytics data
-  Analytics analytics = 1;
-  
-  // Success message
-  string message = 2;
+  Analytics analytics = 1;      // Updated record
+  string message = 2;           // Optional success message
 }
 
-// Response message for deleting analytics data
+// Response for deleting an analytics record
 message DeleteAnalyticsResponse {
-  // Success message
-  string message = 1;
+  string message = 1;           // Optional success message
 }

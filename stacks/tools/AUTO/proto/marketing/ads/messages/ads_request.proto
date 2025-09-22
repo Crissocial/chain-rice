@@ -5,86 +5,71 @@ package marketing.ads.messages;
 import "google/protobuf/timestamp.proto";
 import "marketing/ads/enums/ads_status.proto";
 
-// Request message for creating a new advertisement
-message CreateAdsRequest {
-  // Advertisement name
+// Request to create a new ad
+message CreateAdRequest {
+  // Title of the advertisement
   string name = 1;
-  
-  // Advertisement description
+
+  // Description of the ad
   string description = 2;
-  
-  // Target audience
-  string target_audience = 3;
-  
-  // Budget allocated for the advertisement
+
+  // Main content for the ad (text, HTML, etc.)
+  string content = 3;
+
+  // Budget allocated for this ad
   double budget = 4;
-  
-  // Campaign ID this advertisement belongs to
-  string campaign_id = 5;
-  
-  // Advertisement content
-  string content = 6;
-  
-  // Start date for the advertisement
-  google.protobuf.Timestamp start_date = 7;
-  
-  // End date for the advertisement
-  google.protobuf.Timestamp end_date = 8;
+
+  // Optional: who is creating this ad (user ID or staff ID)
+  string created_by = 5;
+
+  // Optional start date for scheduling the ad
+  google.protobuf.Timestamp start_date = 6;
+
+  // Optional end date for scheduling the ad
+  google.protobuf.Timestamp end_date = 7;
+
+  // Optional tags or categories to classify the ad
+  repeated string tags = 8;
+
+  // Optional location ID if ads are location-specific
+  string location_id = 9;
 }
 
-// Request message for getting an advertisement by ID
-message GetAdsRequest {
-  // Advertisement ID
+// Request to fetch a single ad by its ID
+message GetAdRequest {
+  // Unique ID of the ad to fetch
   string id = 1;
 }
 
-// Request message for listing advertisements
+// Request to list multiple ads with optional filters and pagination
 message ListAdsRequest {
-  // Page number for pagination
-  int32 page = 1;
-  
-  // Number of items per page
-  int32 page_size = 2;
-  
-  // Filter by status
+  // Maximum number of ads to return
+  int32 page_size = 1;
+
+  // Token for pagination (used for fetching next page)
+  string page_token = 2;
+
+  // Optional: filter by ad status
   marketing.ads.enums.AdsStatus status = 3;
-  
-  // Filter by campaign ID
-  string campaign_id = 4;
+
+  // Optional: filter by location ID
+  string location_id = 4;
 }
 
-// Request message for updating an advertisement
-message UpdateAdsRequest {
-  // Advertisement ID
+// Request to update an existing ad
+message UpdateAdRequest {
+  // Unique ID of the ad to update
   string id = 1;
-  
-  // Advertisement name
-  string name = 2;
-  
-  // Advertisement description
-  string description = 3;
-  
-  // Target audience
-  string target_audience = 4;
-  
-  // Budget allocated for the advertisement
-  double budget = 5;
-  
-  // Advertisement content
-  string content = 6;
-  
-  // Start date for the advertisement
-  google.protobuf.Timestamp start_date = 7;
-  
-  // End date for the advertisement
-  google.protobuf.Timestamp end_date = 8;
-  
-  // Advertisement status
-  marketing.ads.enums.AdsStatus status = 9;
+
+  // New values for the ad (can include any subset of fields)
+  Ad ad = 2;
+
+  // Specifies which fields should be updated (partial updates)
+  google.protobuf.FieldMask update_mask = 3;
 }
 
-// Request message for deleting an advertisement
-message DeleteAdsRequest {
-  // Advertisement ID
+// Request to delete an ad
+message DeleteAdRequest {
+  // Unique ID of the ad to delete
   string id = 1;
 }

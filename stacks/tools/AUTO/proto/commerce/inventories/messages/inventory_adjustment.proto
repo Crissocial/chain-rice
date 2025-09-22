@@ -1,13 +1,14 @@
 syntax = "proto3";
 
-package commerce.inventory.messages;
+package com.commerce.inventory.messages;
 
+import "commerce/inventories/messages/warehouse.proto";
 import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/rice-dev/stacks/tools/AUTO/modules/commerce/inventory/messages";
 
 // Stock adjustment message for inventory changes
-message StockAdjustment {
+message InventoryAdjustment {
   // Unique identifier for the adjustment
   string id = 1;
   
@@ -15,8 +16,7 @@ message StockAdjustment {
   string stock_item_id = 2;
   
   // Warehouse identifier
-  string warehouse_id = 3;
-  
+  com.inventories.messages.Warehouse warehouse_id = 3;
   // Adjustment type (add, remove, transfer, etc.)
   string adjustment_type = 4;
   

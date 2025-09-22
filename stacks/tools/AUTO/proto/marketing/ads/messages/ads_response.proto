@@ -5,110 +5,119 @@ package marketing.ads.messages;
 import "google/protobuf/timestamp.proto";
 import "marketing/ads/enums/ads_status.proto";
 
-// Advertisement data transfer object
-message Ads {
-  // Advertisement ID
+// Core Ad object returned in responses
+message Ad {
+  // Unique ID assigned by the server
   string id = 1;
-  
-  // Advertisement name
+
+  // Title of the ad
   string name = 2;
-  
-  // Advertisement description
+
+  // Description of the ad
   string description = 3;
-  
-  // Target audience
-  string target_audience = 4;
-  
-  // Budget allocated for the advertisement
+
+  // Main content of the ad
+  string content = 4;
+
+  // Budget allocated for the ad
   double budget = 5;
-  
-  // Campaign ID this advertisement belongs to
-  string campaign_id = 6;
-  
-  // Advertisement content
-  string content = 7;
-  
-  // Advertisement status
-  marketing.ads.enums.AdsStatus status = 8;
-  
-  // Start date for the advertisement
-  google.protobuf.Timestamp start_date = 9;
-  
-  // End date for the advertisement
-  google.protobuf.Timestamp end_date = 10;
-  
-  // Creation timestamp
-  google.protobuf.Timestamp created_at = 11;
-  
-  // Last update timestamp
-  google.protobuf.Timestamp updated_at = 12;
-  
-  // Advertisement metrics
-  AdsMetrics metrics = 13;
+
+  // Current status/lifecycle of the ad
+  marketing.ads.enums.AdsStatus status = 6;
+
+  // Scheduled start date of the ad
+  google.protobuf.Timestamp start_date = 7;
+
+  // Scheduled end date of the ad
+  google.protobuf.Timestamp end_date = 8;
+
+  // Timestamp when the ad was created
+  google.protobuf.Timestamp created_at = 9;
+
+  // Timestamp when the ad was last updated
+  google.protobuf.Timestamp updated_at = 10;
+
+  // Metrics for tracking ad performance
+  Metrics metrics = 11;
+
+  // ID or name of the user who created the ad
+  string created_by = 12;
+
+  // Optional tags/categories assigned to this ad
+  repeated string tags = 13;
+
+  // Optional location ID for the ad
+  string location_id = 14;
+
+  // Optional timestamp for when the ad became active
+  google.protobuf.Timestamp activated_at = 15;
+
+  // Optional URL for associated media (image, video, etc.)
+  string media_url = 16;
 }
 
-// Advertisement metrics
-message AdsMetrics {
-  // Number of impressions
+// Performance metrics for an ad
+message Metrics {
+  // Number of times the ad was seen
   int64 impressions = 1;
-  
-  // Number of clicks
+
+  // Number of clicks the ad received
   int64 clicks = 2;
-  
-  // Click-through rate
+
+  // Click-through rate (clicks ÷ impressions)
   double ctr = 3;
-  
+
   // Cost per click
   double cpc = 4;
-  
-  // Cost per impression
+
+  // Cost per thousand impressions
   double cpm = 5;
-  
-  // Total spend
+
+  // Total money spent on this ad
   double total_spend = 6;
 }
 
-// Response message for creating an advertisement
-message CreateAdsResponse {
-  // Created advertisement
-  Ads ads = 1;
-  
-  // Success message
+// Response for creating an ad
+message CreateAdResponse {
+  // The newly created ad
+  Ad ad = 1;
+
+  // Optional success message
   string message = 2;
 }
 
-// Response message for getting an advertisement
-message GetAdsResponse {
-  // Advertisement data
-  Ads ads = 1;
+// Response for fetching a single ad
+message GetAdResponse {
+  // Ad data
+  Ad ad = 1;
 }
 
-// Response message for listing advertisements
-message ListAdsResponse {
-  // List of advertisements
-  repeated Ads ads = 1;
-  
-  // Total count of advertisements
+// Response for listing multiple ads
+message ListAdResponse {
+  // List of ads
+  repeated Ad ads = 1;
+
+  // Optional: total number of ads in the system
   int32 total_count = 2;
-  
+
   // Current page number
   int32 page = 3;
-  
-  // Number of items per page
+
+  // Number of ads per page
   int32 page_size = 4;
 }
 
-// Response message for updating an advertisement
-message UpdateAdsResponse {
-  // Updated advertisement
-  Ads ads = 1;
-  
-  // Success message
+// Response for updating an ad
+message UpdateAdResponse {
+  // Updated ad object
+  Ad ad = 1;
+
+  // Optional success message
   string message = 2;
 }
 
-// Response message for deleting an advertisement
-message DeleteAdsResponse {
-  // Success message
+// Response for deleting an ad
+message DeleteAdResponse {
+  // Optional success message
   string message = 1;
 }

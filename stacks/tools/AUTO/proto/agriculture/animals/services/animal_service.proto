@@ -7,7 +7,7 @@ import "agriculture/livestock/messages/herd.proto";
 import "google/protobuf/empty.proto";
 
 service AnimalService {
-  rpc CreateAnimal(CreateAnimalRequest) returns (CreateAnimalResponse);
+  rpc CreateAnimalUnit(CreateAnimalUnitRequest) returns (CreateAnimalUnitResponse);
   rpc GetAnimal(GetAnimalRequest) returns (GetAnimalResponse);
   rpc ListAnimals(ListAnimalsRequest) returns (ListAnimalsResponse);
   rpc UpdateAnimal(UpdateAnimalRequest) returns (UpdateAnimalResponse);

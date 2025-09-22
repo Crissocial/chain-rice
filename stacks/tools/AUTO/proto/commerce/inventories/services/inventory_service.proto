@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package commerce.inventory.services;
+
+import "google/protobuf/empty.proto";
+import "../messages/stock_item.proto";
+import "../messages/warehouse.proto";
+import "../messages/stock_adjustment.proto";
+
+option go_package = "github.com/rice-dev/stacks/tools/AUTO/modules/commerce/inventory/services";
+
+// Inventory service for managing stock items, warehouses, and adjustments
+service InventoryService {
+  // Stock Item Management
+  rpc CreateStockItem(CreateStockItemRequest) returns (CreateStockItemResponse);
+  rpc GetStockItem(GetStockItemRequest) returns (GetStockItemResponse);
+  rpc UpdateStockItem(UpdateStockItemRequest) returns (UpdateStockItemResponse);
+  rpc DeleteStockItem(DeleteStockItemRequest) returns (google.protobuf.Empty);
+  rpc ListStockItems(ListStockItemsRequest) returns (ListStockItemsResponse);
+  
+  // Warehouse Management
+  rpc CreateWarehouse(CreateWarehouseRequest) returns (CreateWarehouseResponse);
+  rpc GetWarehouse(GetWarehouseRequest) returns (GetWarehouseResponse);
+  rpc UpdateWarehouse(UpdateWarehouseRequest) returns (UpdateWarehouseResponse);
+  rpc DeleteWarehouse(DeleteWarehouseRequest) returns (google.protobuf.Empty);
+  rpc ListWarehouses(ListWarehousesRequest) returns (ListWarehousesResponse);
+  
+  // Stock Adjustment Management
+  rpc CreateStockAdjustment(CreateStockAdjustmentRequest) returns (CreateStockAdjustmentResponse);
+  rpc GetStockAdjustment(GetStockAdjustmentRequest) returns (GetStockAdjustmentResponse);
+  rpc ListStockAdjustments(ListStockAdjustmentsRequest) returns (ListStockAdjustmentsResponse);
+  
+  // Inventory Operations
+  rpc ReserveStock(ReserveStockRequest) returns (ReserveStockResponse);
+  rpc ReleaseStock(ReleaseStockRequest) returns (ReleaseStockResponse);
+  rpc TransferStock(TransferStockRequest) returns (TransferStockResponse);
+  rpc GetStockLevels(GetStockLevelsRequest) returns (GetStockLevelsResponse);
+  rpc CheckAvailability(CheckAvailabilityRequest) returns (CheckAvailabilityResponse);
+}
+
+

@@ -10,7 +10,7 @@ import "../enums/inventory_priority.proto";
 option go_package = "github.com/rice-dev/stacks/tools/AUTO/modules/commerce/inventory/messages";
 
 // Stock item message representing a single item in inventory
-message StockItem {
+message InventoryItem {
   // Unique identifier for the stock item
   string id = 1;
   

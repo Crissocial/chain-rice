@@ -77,35 +77,3 @@ message AgricultureModuleSummary {
   // Last updated timestamp
   int64 last_updated = 7;
 }
-
-// Main service aggregator - provides access to all agriculture services
-service AgricultureService {
-  // Crop operations
-  rpc CreateCrop(agriculture.crops.services.CreateCropRequest) returns (agriculture.crops.services.CreateCropResponse);
-  rpc GetCrop(agriculture.crops.services.GetCropRequest) returns (agriculture.crops.services.GetCropResponse);
-  rpc UpdateCrop(agriculture.crops.services.UpdateCropRequest) returns (agriculture.crops.services.UpdateCropResponse);
-  rpc DeleteCrop(agriculture.crops.services.DeleteCropRequest) returns (agriculture.crops.services.DeleteCropResponse);
-  
-  // Livestock operations
-  rpc CreateAnimal(agriculture.livestock.services.CreateAnimalRequest) returns (agriculture.livestock.services.CreateAnimalResponse);
-  rpc GetAnimal(agriculture.livestock.services.GetAnimalRequest) returns (agriculture.livestock.services.GetAnimalResponse);
-  rpc UpdateAnimal(agriculture.livestock.services.UpdateAnimalRequest) returns (agriculture.livestock.services.UpdateAnimalResponse);
-  rpc DeleteAnimal(agriculture.livestock.services.DeleteAnimalRequest) returns (agriculture.livestock.services.DeleteAnimalResponse);
-  
-  // Equipment operations
-  rpc CreateEquipment(agriculture.equipment.services.CreateEquipmentRequest) returns (agriculture.equipment.services.CreateEquipmentResponse);
-  rpc GetEquipment(agriculture.equipment.services.GetEquipmentRequest) returns (agriculture.equipment.services.GetEquipmentResponse);
-  rpc UpdateEquipment(agriculture.equipment.services.UpdateEquipmentRequest) returns (agriculture.equipment.services.UpdateEquipmentResponse);
-  rpc ScheduleMaintenance(agriculture.equipment.services.ScheduleMaintenanceRequest) returns (agriculture.equipment.services.ScheduleMaintenanceResponse);
-  
-  // Weather operations
-  rpc GetWeatherData(agriculture.weather.services.GetWeatherDataRequest) returns (agriculture.weather.services.GetWeatherDataResponse);
-  rpc GetForecast(agriculture.weather.services.GetForecastRequest) returns (agriculture.weather.services.GetForecastResponse);
-  rpc GetWeatherAlerts(agriculture.weather.services.GetWeatherAlertsRequest) returns (agriculture.weather.services.GetWeatherAlertsResponse);
-  
-  // Farm operations
-  rpc CreateFarm(agriculture.farm.services.CreateFarmRequest) returns (agriculture.farm.services.CreateFarmResponse);
-  rpc GetFarm(agriculture.farm.services.GetFarmRequest) returns (agriculture.farm.services.GetFarmResponse);
-  rpc UpdateFarm(agriculture.farm.services.UpdateFarmRequest) returns (agriculture.farm.services.UpdateFarmResponse);
-  rpc CreateField(agriculture.farm.services.CreateFieldRequest) returns (agriculture.farm.services.CreateFieldResponse);
-}

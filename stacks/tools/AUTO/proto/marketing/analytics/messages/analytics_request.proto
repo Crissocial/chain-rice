@@ -5,83 +5,44 @@ package marketing.analytics.messages;
 import "google/protobuf/timestamp.proto";
 import "marketing/analytics/enums/analytics_type.proto";
 
-// Request message for creating analytics data
+// Request to create a new analytics record
 message CreateAnalyticsRequest {
-  // Analytics name
-  string name = 1;
-  
-  // Analytics type
-  marketing.analytics.enums.AnalyticsType type = 2;
-  
-  // Analytics description
-  string description = 3;
-  
-  // Data source
-  string data_source = 4;
-  
-  // Metrics data in JSON format
-  string metrics_data = 5;
-  
-  // Campaign ID (if applicable)
-  string campaign_id = 6;
-  
-  // Date for the analytics data
-  google.protobuf.Timestamp date = 7;
+  string name = 1;                                // Analytics name
+  marketing.analytics.enums.AnalyticsType type = 2; // Type of analytics
+  string description = 3;                         // Optional description
+  string data_source = 4;                         // Source of data
+  string metrics_data = 5;                        // Metrics as JSON
+  string campaign_id = 6;                         // Optional campaign association
+  google.protobuf.Timestamp date = 7;            // Date of the data
 }
 
-// Request message for getting analytics by ID
+// Request to fetch a single analytics record by ID
 message GetAnalyticsRequest {
-  // Analytics ID
-  string id = 1;
+  string id = 1;                                  // Unique analytics ID
 }
 
-// Request message for listing analytics
+// Request to list multiple analytics records with optional filters
 message ListAnalyticsRequest {
-  // Page number for pagination
-  int32 page = 1;
-  
-  // Number of items per page
-  int32 page_size = 2;
-  
-  // Filter by analytics type
-  marketing.analytics.enums.AnalyticsType type = 3;
-  
-  // Filter by campaign ID
-  string campaign_id = 4;
-  
-  // Filter by date range - start date
-  google.protobuf.Timestamp start_date = 5;
-  
-  // Filter by date range - end date
-  google.protobuf.Timestamp end_date = 6;
+  int32 page_size = 1;                            // Number of records per page
+  string page_token = 2;                          // Pagination token
+  marketing.analytics.enums.AnalyticsType type = 3; // Optional type filter
+  string campaign_id = 4;                         // Optional campaign filter
+  google.protobuf.Timestamp start_date = 5;       // Optional start date
+  google.protobuf.Timestamp end_date = 6;         // Optional end date
 }
 
-// Request message for updating analytics data
+// Request to update an existing analytics record
 message UpdateAnalyticsRequest {
-  // Analytics ID
-  string id = 1;
-  
-  // Analytics name
-  string name = 2;
-  
-  // Analytics type
-  marketing.analytics.enums.AnalyticsType type = 3;
-  
-  // Analytics description
-  string description = 4;
-  
-  // Data source
-  string data_source = 5;
-  
-  // Metrics data in JSON format
-  string metrics_data = 6;
-  
-  // Date for the analytics data
-  google.protobuf.Timestamp date = 7;
+  string id = 1;                                  // ID of the record to update
+  string name = 2;                                // Updated name
+  marketing.analytics.enums.AnalyticsType type = 3; // Updated type
+  string description = 4;                         // Updated description
+  string data_source = 5;                         // Updated source
+  string metrics_data = 6;                        // Updated metrics JSON
+  google.protobuf.Timestamp date = 7;            // Updated date
 }
 
-// Request message for deleting analytics data
+// Request to delete an analytics record
 message DeleteAnalyticsRequest {
-  // Analytics ID
-  string id = 1;
+  string id = 1;                                  // ID of the record to delete
 }
